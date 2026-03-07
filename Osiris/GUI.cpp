@@ -2591,7 +2591,7 @@ void GUI::renderGuiStyle() noexcept
                     ImGui::BeginChild("##Text", ImVec2{ 700, 20 }, false);
                     {
                         ImGui::SetCursorPos(ImVec2{ 2, 2 });
-                        ImGui::Text("Better Osiris Made In https://github.com/notgoodusename/OsirisAndExtra");
+                        ImGui::Text("https://t.me/meliohub");
                     }
                     ImGui::EndChild();
                 }
