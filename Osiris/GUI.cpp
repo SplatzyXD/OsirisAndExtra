@@ -495,8 +495,6 @@ void GUI::renderRagebotWindow() noexcept
     ImGui::PopID();
     ImGui::PushID("Hideshots");
     ImGui::hotkey2("Hideshots", config->tickbase.hideshots);
-    ImGui::PopID();
-    ImGui::Checkbox("Teleport on shift", &config->tickbase.teleport);
 
     ImGui::Columns(1);
 }

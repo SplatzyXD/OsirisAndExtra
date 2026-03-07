@@ -1161,72 +1161,6 @@ static void __fastcall physicsSimulateHook(void* thisPointer, void* edx) noexcep
     EnginePrediction::store();
 }
 
-static void writeUsercmd(bufferWrite* buffer, UserCmd* toCmd, UserCmd* fromCmd) noexcept
-{
-    const auto writeCmd = memory->writeUsercmd;
-    __asm
-    {
-        mov     ecx, buffer
-        mov     edx, toCmd
-        push    fromCmd
-        call    writeCmd
-        add     esp, 4
-    }
-}
-
-static bool __fastcall writeUsercmdDeltaToBuffer(void* thisPointer, void* edx, int slot, bufferWrite* buffer, int from, int to, bool newCmd) noexcept
-{
-    static auto original = hooks->client.getOriginal<bool, 24, int, bufferWrite*, int, int, bool>(slot, buffer, from, to, newCmd);
-
-    if (Tickbase::getTickshift() <= 0 || config->tickbase.teleport)
-        return original(thisPointer, slot, buffer, from, to, newCmd);
-
-    const int extraCommands = Tickbase::getTickshift();
-    Tickbase::resetTickshift();
-
-    int* backupCommandsPointer = reinterpret_cast<int*>(reinterpret_cast<uintptr_t>(buffer) - 0x30);
-    int* newCommandsPointer = reinterpret_cast<int*>(reinterpret_cast<uintptr_t>(buffer) - 0x2C);
-
-    const int newCommands = *newCommandsPointer;
-    const int nextCommand = memory->clientState->chokedCommands + memory->clientState->lastOutgoingCommand + 1;
-
-    *backupCommandsPointer = 0;
-
-    for (to = nextCommand - newCommands + 1; to <= nextCommand; to++)
-    {
-        if (!original(thisPointer, slot, buffer, from, to, true))
-            return false;
-
-        from = to;
-    }
-
-    *newCommandsPointer = newCommands + extraCommands;
-
-    UserCmd* cmd = memory->input->getUserCmd(slot, from);
-    if (!cmd)
-        return true;
-
-    UserCmd toCmd = *cmd;
-    UserCmd fromCmd = *cmd;
-
-    toCmd.commandNumber++;
-    if (!config->tickbase.teleport)
-        toCmd.tickCount += 200;
-
-    for (int i = 0; i < extraCommands; i++)
-    {
-        writeUsercmd(buffer, &toCmd, &fromCmd);
-
-        toCmd.tickCount++;
-        toCmd.commandNumber++;
-
-        fromCmd.tickCount = toCmd.tickCount - 1;
-        fromCmd.commandNumber = toCmd.commandNumber - 1;
-    }
-
-    return true;
-}
-
 static void __cdecl clMoveHook(float frameTime, bool isFinalTick) noexcept
 {
     using clMoveFn = void(__cdecl*)(float, bool);
@@ -1237,10 +1171,9 @@ static void __cdecl clMoveHook(float frameTime, bool isFinalTick) noexcept
 
     original(frameTime, isFinalTick);
 
-    if (!Tickbase::getTickshift() || !config->tickbase.teleport)
+    if (!Tickbase::getTickshift())
         return;
 
-    int remainToShift = 0;
     int tickShift = Tickbase::getTickshift();
 
     Tickbase::isShifting() = true;
@@ -1248,7 +1181,7 @@ static void __cdecl clMoveHook(float frameTime, bool isFinalTick) noexcept
     for (int shiftAmount = 0; shiftAmount < tickShift; shiftAmount++)
     {
         Tickbase::isFinalTick() = (tickShift - shiftAmount) == 1;
-        original(frameTime, isFinalTick);
+        original(frameTime, Tickbase::isFinalTick());
     }
     Tickbase::isShifting() = false;
 
@@ -1708,8 +1641,7 @@ void Hooks::install() noexcept
 
     client.init(interfaces->client);
     client.hookAt(7, levelShutDown);
-    client.hookAt(22, createMoveProxy);
-    client.hookAt(24, writeUsercmdDeltaToBuffer);
+    client.hookAt(22, createMoveProxy); 
     client.hookAt(37, frameStageNotify);
     client.hookAt(38, dispatchUserMessage);
     

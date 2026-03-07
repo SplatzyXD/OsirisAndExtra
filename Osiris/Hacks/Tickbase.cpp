@@ -27,6 +27,23 @@ bool shifting{ false };
 bool finalTick{ false };
 bool hasHadTickbaseActive{ false };
 
+int getDoubleTapTicks() 
+{
+    if (!localPlayer || !localPlayer->isAlive())
+        return 0;
+
+    const auto activeWeapon = localPlayer->getActiveWeapon();
+    if (!activeWeapon)
+        return 0;
+
+    float fireRate = activeWeapon->getWeaponData()->cycletime;
+    float tickInterval = memory->globalVars->intervalPerTick;
+    int ticksPerShot = static_cast<int>(std::ceil(fireRate / tickInterval));
+    int shiftTicks = ticksPerShot + 1;
+    shiftTicks = std::clamp(shiftTicks, 0, maxUserCmdProcessTicks - 1);
+    return shiftTicks;
+}
+
 void Tickbase::start(UserCmd* cmd) noexcept
 {
     if (!localPlayer || !localPlayer->isAlive())
@@ -48,12 +65,10 @@ void Tickbase::start(UserCmd* cmd) noexcept
     }
 
     if (config->tickbase.doubletap.isActive())
-        targetTickShift = 13;
+        targetTickShift = getDoubleTapTicks();
     else if (config->tickbase.hideshots.isActive())
         targetTickShift = 9;
 
-    //We do -1 to leave 1 tick to fakelag
-    targetTickShift = std::clamp(targetTickShift, 0, maxUserCmdProcessTicks - 1);
     hasHadTickbaseActive = true;
 }
 
@@ -122,8 +137,8 @@ bool Tickbase::canRun() noexcept
 
     if ((ticksAllowedForProcessing < targetTickShift || chokedPackets > maxUserCmdProcessTicks - targetTickShift) && memory->globalVars->realtime - realTime > 1.0f)
     {
-        ticksAllowedForProcessing = min(ticksAllowedForProcessing++, maxUserCmdProcessTicks);
-        chokedPackets = max(chokedPackets--, 0);
+        ticksAllowedForProcessing = min(ticksAllowedForProcessing + 1, maxUserCmdProcessTicks);
+        chokedPackets = max(chokedPackets - 1, 0);
         pauseTicks++;
         return false;
     }
@@ -167,15 +182,12 @@ int Tickbase::getCorrectTickbase(int commandNumber) noexcept
 
     if (commandNumber == shiftCommand)
         return tickBase - shiftedTickbase;
-    else if (commandNumber == shiftCommand + 1)
-    {
-        if (!config->tickbase.teleport)
-            return tickBase + shiftedTickbase;
+    else if (commandNumber == shiftCommand + 1) 
         return tickBase;
-    }
     if (pauseTicks)
         return tickBase + pauseTicks;
-	return tickBase;
+
+    return tickBase;
 }
 
 int& Tickbase::pausedTicks() noexcept
@@ -197,11 +209,9 @@ int Tickbase::getTickshift() noexcept
 
 void Tickbase::resetTickshift() noexcept
 {
-	shiftedTickbase = tickShift;
-    //Without teleport we only need to recharge after fakelagging
-    if (config->tickbase.teleport)
-        ticksAllowedForProcessing = max(ticksAllowedForProcessing - tickShift, 0);
-	tickShift = 0;
+    shiftedTickbase = tickShift;
+    ticksAllowedForProcessing = max(ticksAllowedForProcessing - tickShift, 0);
+    tickShift = 0;
 }
 
 bool& Tickbase::isFinalTick() noexcept
