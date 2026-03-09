@@ -403,8 +403,6 @@ export default function TrainerPanel() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [ws, setWs] = useState(null);
   const [gameConnected, setGameConnected] = useState(false);
-  const [ws, setWs] = useState(null);
-  const [gameConnected, setGameConnected] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState("");
@@ -796,7 +794,6 @@ export default function TrainerPanel() {
         <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
           <span style={{ fontSize: 9, color: "rgba(255,255,255,0.2)", letterSpacing: 1 }}>WS:9001 · LOCAL:3000</span>
           <span style={{ fontSize: 9, color: "rgba(255,255,255,0.2)" }}>USER: <span style={{ color: "rgba(34,197,94,0.5)" }}>{username.toUpperCase()}</span></span>
-          <button onClick={() => { if(ws) ws.close(); setLoggedIn(false); }} style={{
           <button onClick={() => { if(ws) ws.close(); setLoggedIn(false); }} style={{
             background: "rgba(248,113,113,0.08)", border: "1px solid rgba(248,113,113,0.2)",
             color: "#f87171", fontSize: 9, padding: "3px 10px", borderRadius: 3,
