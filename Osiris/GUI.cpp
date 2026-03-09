@@ -23,6 +23,7 @@
 
 #include "GUI.h"
 #include "Config.h"
+#include "WebUI.h"
 #include "Helpers.h"
 #include "Hooks.h"
 #include "Interfaces.h"
@@ -2217,6 +2218,13 @@ void GUI::renderMiscWindow() noexcept
 
 void GUI::renderConfigWindow() noexcept
 {
+    ImGui::Text("WebUI Connection");
+    if (ImGui::Checkbox("Connect to WebUI", &WebUI::enabled)) {
+        WebUI::toggleConnection();
+    }
+    ImGui::InputText("WebSocket URL", WebUI::url, sizeof(WebUI::url));
+    ImGui::Text("Status: %s", WebUI::isConnected ? "Connected" : "Disconnected");
+    ImGui::Separator();
     ImGui::Columns(2, nullptr, false);
     ImGui::SetColumnOffset(1, 170.0f);
 

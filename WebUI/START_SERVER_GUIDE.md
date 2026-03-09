@@ -12,20 +12,20 @@ The Node.js server acts as the middleman passing configuration data between the 
 1. Open your terminal or Command Prompt (cmd).
 2. Navigate to the `WebUI/Server/` directory.
 3. Install the dependencies by running:
-   ```bash
-   npm install
-   ```
+   `npm install`
 4. Start the server by running:
-   ```bash
-   npm start
-   ```
+   `npm run start`
 5. You should see a message saying `Server listening on port 9001`. **Keep this terminal window open.**
 
 ## 3. Starting the WebUI (React JSX)
-Since your WebUI is built with React (`trainer-panel.jsx`), you will need to run it via your standard Vite/Create React App/Next.js script (or whatever development environment you are using locally to serve your `jsx` component).
+Since your WebUI is built with React (`trainer-panel.jsx`) and managed with Vite, here is how you launch the UI.
 1. Open a **new** terminal or Command Prompt (cmd).
-2. Start your frontend development server (e.g. `npm run dev` or `npm start` in your UI folder).
-3. Open your browser and navigate to the frontend URL (typically `http://localhost:3000` or `http://localhost:5173`).
+2. Navigate to the `WebUI/UI/vite-project/` directory.
+3. Install the UI dependencies by running:
+   `npm install`
+4. Start the frontend development server by running:
+   `npm run dev`
+5. Open your browser and navigate to the frontend URL (typically `http://localhost:5173`).
 
 ## 4. Connecting the Game
 1. Inject `Osiris.dll` into the game.
@@ -33,8 +33,10 @@ Since your WebUI is built with React (`trainer-panel.jsx`), you will need to run
 3. Go to the **Configs** tab.
 4. Under the **WebUI Connection** section:
    - Ensure the WebSocket URL is `ws://127.0.0.1:9001`.
-   - Check the **Connect** box.
-5. In your web browser, log into the WebUI using:
+   - Check the **Connect to WebUI** box.
+5. In your web browser, you should immediately see the login status change from `WAITING FOR DLL...` (Red) to `DLL INJECTED — READY` (Green).
+6. Log into the WebUI using one of the pre-configured credentials:
    - **Username:** admin
-   - **Password:** admin
-6. The status indicator on the WebUI will turn green ("CONNECTED") and changes you make on the web interface will instantly apply to your game!
+   - **Password:** password123
+   - (Or use user1/user1 or Splatzy/123)
+7. The status indicator on the top bar of the WebUI will show "CONNECTED" and changes you make on the web interface will instantly apply to your game!

@@ -403,6 +403,8 @@ export default function TrainerPanel() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [ws, setWs] = useState(null);
   const [gameConnected, setGameConnected] = useState(false);
+  const [ws, setWs] = useState(null);
+  const [gameConnected, setGameConnected] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState("");
@@ -417,6 +419,27 @@ export default function TrainerPanel() {
 
   useEffect(() => {
     setLoginAnim(true);
+
+    // Setup initial connection just to listen for game status
+    const socket = new WebSocket("ws://127.0.0.1:9001");
+    socket.onopen = () => {
+        // Send a ping to ask for status
+        socket.send(JSON.stringify({ type: "status_ping" }));
+    };
+    socket.onmessage = (event) => {
+        try {
+            const data = JSON.parse(event.data);
+            if (data.type === "game_status") {
+                setGameConnected(data.connected);
+            }
+        } catch (e) {}
+    };
+
+    setWs(socket);
+
+    return () => {
+        socket.close();
+    }
   }, []);
 
   const handleLogin = () => {
@@ -459,6 +482,9 @@ export default function TrainerPanel() {
       setWs(null);
       setGameConnected(false);
     };
+    setLoginError("");
+    setLoggedIn(true);
+    setTimeout(() => setPanelAnim(true), 50);
   };
 
   const getVal = (label, defaultVal) => {
@@ -682,8 +708,8 @@ export default function TrainerPanel() {
 
           {/* Status indicator */}
           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 20, padding: "8px 12px", background: "rgba(34,197,94,0.05)", border: "1px solid rgba(34,197,94,0.1)", borderRadius: 4 }}>
-            <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#22c55e", animation: "pulse 2s infinite" }} />
-            <span style={{ fontSize: 10, color: "rgba(34,197,94,0.7)", letterSpacing: 1 }}>DLL INJECTED — WAITING</span>
+            <div style={{ width: 6, height: 6, borderRadius: "50%", background: gameConnected ? "#22c55e" : "#f87171", animation: "pulse 2s infinite" }} />
+            <span style={{ fontSize: 10, color: gameConnected ? "rgba(34,197,94,0.7)" : "rgba(248,113,113,0.7)", letterSpacing: 1 }}>{gameConnected ? "DLL INJECTED — READY" : "WAITING FOR DLL..."}</span>
           </div>
 
           {/* Fields */}
@@ -763,11 +789,14 @@ export default function TrainerPanel() {
           <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
             <div style={{ width: 5, height: 5, borderRadius: "50%", background: gameConnected ? "#22c55e" : "#f87171", animation: "pulse 2s infinite" }} />
             <span style={{ fontSize: 9, color: gameConnected ? "rgba(34,197,94,0.6)" : "rgba(248,113,113,0.6)", letterSpacing: 1 }}>{gameConnected ? "CONNECTED" : "DISCONNECTED"}</span>
+            <div style={{ width: 5, height: 5, borderRadius: "50%", background: gameConnected ? "#22c55e" : "#f87171", animation: "pulse 2s infinite" }} />
+            <span style={{ fontSize: 9, color: gameConnected ? "rgba(34,197,94,0.6)" : "rgba(248,113,113,0.6)", letterSpacing: 1 }}>{gameConnected ? "CONNECTED" : "DISCONNECTED"}</span>
           </div>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
           <span style={{ fontSize: 9, color: "rgba(255,255,255,0.2)", letterSpacing: 1 }}>WS:9001 · LOCAL:3000</span>
           <span style={{ fontSize: 9, color: "rgba(255,255,255,0.2)" }}>USER: <span style={{ color: "rgba(34,197,94,0.5)" }}>{username.toUpperCase()}</span></span>
+          <button onClick={() => { if(ws) ws.close(); setLoggedIn(false); }} style={{
           <button onClick={() => { if(ws) ws.close(); setLoggedIn(false); }} style={{
             background: "rgba(248,113,113,0.08)", border: "1px solid rgba(248,113,113,0.2)",
             color: "#f87171", fontSize: 9, padding: "3px 10px", borderRadius: 3,
