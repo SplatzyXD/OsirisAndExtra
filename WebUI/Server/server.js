@@ -1,14 +1,14 @@
-const express = require('express');
 const http = require('http');
 const WebSocket = require('ws');
 const path = require('path');
 
-const app = express();
-const server = http.createServer(app);
+const server = http.createServer((req, res) => {
+    res.writeHead(200, { "Content-Type": "text/plain" });
+    res.end("Trainer Panel WebSocket Server");
+});
 const wss = new WebSocket.Server({ server });
 
 // Serve static files from the build directory (assuming React app is built there)
-app.use(express.static(path.join(__dirname, '../build')));
 
 const clients = new Set();
 let gameClient = null;
