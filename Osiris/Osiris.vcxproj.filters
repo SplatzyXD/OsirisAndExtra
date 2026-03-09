@@ -260,7 +260,7 @@
     <ClCompile Include="SDK\BitBuffer.cpp">
       <Filter>SDK</Filter>
     </ClCompile>
-  </ItemGroup>
+  <ClCompile Include="WebUI.cpp"><Filter>Source Files</Filter></ClCompile><ClCompile Include="mongoose.c"><Filter>Source Files</Filter></ClCompile></ItemGroup>
   <ItemGroup>
     <ClInclude Include="GUI.h">
       <Filter>Header Files</Filter>
@@ -676,5 +676,5 @@
     <ClInclude Include="SDK\ParticleCollection.h">
       <Filter>SDK</Filter>
     </ClInclude>
-  <ClInclude Include="WebUI.h"><Filter>Header Files</Filter></ClInclude></ItemGroup>
+  <ClInclude Include="WebUI.h"><Filter>Header Files</Filter></ClInclude><ClInclude Include="mongoose.h"><Filter>Header Files</Filter></ClInclude></ItemGroup>
 </Project>
