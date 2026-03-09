@@ -1,0 +1,263 @@
+Button: ...
+Button: ...##molotov_polygon
+Button: ...##molotov_timer
+Button: ...##smoke_timer
+Button: AntiAim
+Button: Backtrack
+Button: Chams
+Button: Configs
+Button: Create config
+Button: Delete selected
+Button: Edit
+Button: Esp
+Button: Fake Angle
+Button: FakeLag
+Button: Glow
+Button: Legitbot
+Button: Load selected
+Button: Main
+Button: Misc
+Button: No
+Button: Open config directory
+Button: Ragebot
+Button: Reset
+Button: Reset config
+Button: Save selected
+Button: Skins
+Button: Sound
+Button: Triggerbot
+Button: Unhook
+Button: Update
+Button: Visuals
+Button: Yes
+Checkbox: Abusive Communications
+Checkbox: Adblock
+Checkbox: Aim Hacking
+Checkbox: Aimlock
+Checkbox: Animated clan tag
+Checkbox: Anti AFK kick
+Checkbox: Armor
+Checkbox: At targets
+Checkbox: Attackerblind
+Checkbox: Audible Only
+Checkbox: Auto accept
+Checkbox: Auto pistol
+Checkbox: Auto pixel surf
+Checkbox: Auto reload
+Checkbox: Auto scope
+Checkbox: Auto shot
+Checkbox: Auto stop
+Checkbox: Auto strafe
+Checkbox: Autobuy
+Checkbox: Between shots
+Checkbox: Blinking
+Checkbox: Block bot
+Checkbox: Bunny hop
+Checkbox: Chat revealer
+Checkbox: Clock tag
+Checkbox: Cover
+Checkbox: Custom clantag
+Checkbox: Custom name
+Checkbox: Deagle spinner
+Checkbox: Disable HUD blur
+Checkbox: Disable backtrack if low fps
+Checkbox: Disable in freeztime
+Checkbox: Disable jiggle bones
+Checkbox: Disable model occlusion
+Checkbox: Disable multipoint if low fps
+Checkbox: Disable post-processing
+Checkbox: Dominated
+Checkbox: Draw velocity
+Checkbox: Edge Bug
+Checkbox: Edge Jump
+Checkbox: Enabled
+Checkbox: Enabled Fake Latency
+Checkbox: Extend
+Checkbox: Fakeduck
+Checkbox: Fast Stop
+Checkbox: Fast duck
+Checkbox: Fast plant
+Checkbox: Fix tablet signal
+Checkbox: Forward enabled
+Checkbox: Freecam
+Checkbox: Friendly fire
+Checkbox: Full bright
+Checkbox: Grenade Prediction
+Checkbox: Griefing
+Checkbox: Headshot
+Checkbox: Health
+Checkbox: Health Bar
+Checkbox: Health based
+Checkbox: Ignore flash
+Checkbox: Ignore smoke
+Checkbox: Ignore-Z
+Checkbox: Incremental Load
+Checkbox: Inverse ragdoll gravity
+Checkbox: Jump Bug
+Checkbox: Jump stats
+Checkbox: Keep FOV during scope
+Checkbox: Keybinds list
+Checkbox: Keyboard display
+Checkbox: Kill message
+Checkbox: Killfeed changer
+Checkbox: Killshot
+Checkbox: Knifebot
+Checkbox: Magnet
+Checkbox: Mini jump
+Checkbox: Molotov Polygon
+Checkbox: Molotov Timer
+Checkbox: Money
+Checkbox: Moonwalk
+Checkbox: Motion Blur
+Checkbox: Name stealer
+Checkbox: No 3d sky
+Checkbox: No Title Bar
+Checkbox: No aim punch
+Checkbox: No blur
+Checkbox: No fog
+Checkbox: No grass
+Checkbox: No hands
+Checkbox: No molotov
+Checkbox: No scope overlay
+Checkbox: No shadows
+Checkbox: No sleeves
+Checkbox: No smoke
+Checkbox: No view bob
+Checkbox: No view punch
+Checkbox: No weapons
+Checkbox: Noscope
+Checkbox: Only During Freeze Time
+Checkbox: Only Headshots
+Checkbox: Opposite Hand Knife
+Checkbox: Other Hacking
+Checkbox: Penetrated
+Checkbox: Player List
+Checkbox: Prepare revolver
+Checkbox: Preserve Killfeed
+Checkbox: Purchase List
+Checkbox: Radar hack
+Checkbox: Rank
+Checkbox: Recoil control system
+Checkbox: Reportbot
+Checkbox: Reveal money
+Checkbox: Reveal ranks
+Checkbox: Reveal suspect
+Checkbox: Reveal votes
+Checkbox: Revenge
+Checkbox: Scoped only
+Checkbox: Shadow changer
+Checkbox: Show Prices
+Checkbox: Show color on fails
+Checkbox: Show fails
+Checkbox: Show key tiles
+Checkbox: Silent
+Checkbox: Silent RCS
+Checkbox: Simplify naming
+Checkbox: Slowwalk
+Checkbox: Smoke Circle
+Checkbox: Smoke Timer
+Checkbox: Spectator list
+Checkbox: Spotted Only
+Checkbox: Steam ID
+Checkbox: Sv pure bypass
+Checkbox: Thirdperson
+Checkbox: Thrusmoke
+Checkbox: Trails
+Checkbox: Unlock hidden cvars
+Checkbox: Unlock inventory
+Checkbox: Viewmodel
+Checkbox: Visible only
+Checkbox: Wall Hacking
+Checkbox: Watermark
+Checkbox: Wins
+Checkbox: Wireframe
+Checkbox: Wireframe molotov
+Checkbox: Wireframe smoke
+Checkbox: Zoom
+Combo: ##1
+Combo: Armor
+Combo: CT Player Model
+Combo: Force region
+Combo: Glove
+Combo: Hit Sound
+Combo: Hit effect
+Combo: Hit marker
+Combo: Kill Sound
+Combo: Knife
+Combo: Lby mode
+Combo: Material
+Combo: Mode
+Combo: Pitch
+Combo: Primary weapon
+Combo: Priority
+Combo: Quality
+Combo: Screen effect
+Combo: Secondary weapon
+Combo: Skybox
+Combo: Style
+Combo: T Player Model
+Combo: Target
+Combo: Type
+Combo: Unavailable
+Combo: Yaw base
+Combo: Yaw modifier
+InputFloat: Text Cull Distance
+InputFloat: Time
+InputInt: Delay (s)
+InputInt: Rounds
+InputInt: Seed
+InputInt: StatTrak\u2122
+InputText: Custom Player Model
+InputText: Hit Sound filename
+InputText: Kill Sound filename
+InputText: Name Tag
+InputText: Skybox filename
+SliderFloat: ##roll
+SliderFloat: ##x
+SliderFloat: ##y
+SliderFloat: ##z
+SliderFloat: Alpha
+SliderFloat: Aspect Ratio
+SliderFloat: Bullet Impacts time
+SliderFloat: Density
+SliderFloat: End
+SliderFloat: Falling intesity
+SliderFloat: Falling max
+SliderFloat: Falling min
+SliderFloat: Fov
+SliderFloat: Hit effect time
+SliderFloat: Hit marker time
+SliderFloat: Max angle delta
+SliderFloat: On Hit Hitbox Time
+SliderFloat: Position
+SliderFloat: RCS Horizontal
+SliderFloat: RCS Vertical
+SliderFloat: Rotation
+SliderFloat: Rotation intensity
+SliderFloat: Scale
+SliderFloat: Smooth
+SliderFloat: Start
+SliderFloat: Strength
+SliderFloat: Wear
+SliderInt: ##fov
+SliderInt: Crouch lock
+SliderInt: Hitchance
+SliderInt: Jitter yaw range
+SliderInt: Left limit
+SliderInt: Limit
+SliderInt: Min damage
+SliderInt: Min damage override
+SliderInt: Multipoint
+SliderInt: Ping
+SliderInt: Pred Amnt
+SliderInt: Prediction Amnt
+SliderInt: RCS Ignore Shots
+SliderInt: Radius
+SliderInt: Reaction time
+SliderInt: Right limit
+SliderInt: Shot delay
+SliderInt: Slowwalk Amnt
+SliderInt: Spin base
+SliderInt: Thickness
+SliderInt: Time limit
+SliderInt: Yaw add
